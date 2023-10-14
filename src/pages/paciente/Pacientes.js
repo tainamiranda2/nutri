@@ -32,22 +32,35 @@ export const Pacientes = () => {
         <p>Nenhum paciente encontrado.</p>
       ) : (
         <>
+        <table className='table table-borderless table-dark'>
+         <thead>
+          <tr>
+            <th scope="col" >Nome</th>
+            <th scope="col">Idade</th>
+            <th scope="col">Genero</th>
+            <th scope="col">Histórico</th>
+            <th scope="col">Status de sáude</th>
+            <th scope="col">Email</th>
+            <th scope="col">telefone</th>
+            <th scope="col">ações</th>
+            </tr>
+           </thead>
           {data.map((item) => (
-            <div key={item.id} className="jumbotron jumbotron-fluid primary">
-              <div className="container">
-                <h2 className="display-4">Nome: {item.nome}</h2>
-                <p className="lead">Idade: {item.idade}</p>
-                <p className="lead">Genero: {item.genero}</p>
+            <tbody key={item.id} className="jumbotron jumbotron-fluid primary">
+          <tr>
+                <td > {item.nome}</td>
+                <td > {item.idade}</td>
+                <td > {item.genero}</td>
 
-                <p className="lead">Histórico: {item.historico}</p>
-                <p className="lead">Status de saúde: {item.statusSaude}</p>
-                <p className="lead">Email: {item.email}</p>
-                <p className="lead">Telefone: {item.telefone}</p>
-    
-
-              </div>
-            </div>
+                <td > {item.historico}</td>
+                <td >{item.statusSaude}</td>
+                <td > {item.email}</td>
+                <td >{item.telefone}</td>
+    <td>Apagar / editar</td>
+                </tr>
+            </tbody>
           ))}
+          </table>
         </>
       )}
     </div>

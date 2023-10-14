@@ -6,7 +6,7 @@ export const Navbar =()=>{
 return(
     <div>
 
-<nav  className="navbar navbar-expand-lg navbar-info bg-info">
+<nav  className="navbar navbar-expand-lg navbar-info bg-dark">
 <ul className="nav justify-content-end">
  <li className='nav-item'>
     <Link  className='nav-link' to='/pacientes'>Todos pacientes</Link> 
