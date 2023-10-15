@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Link } from 'react-router-dom';
 
 export const Pacientes = () => {
   const [data, setData] = useState([]);
@@ -20,6 +21,18 @@ export const Pacientes = () => {
       console.error('Erro na requisição:', error.message);
     }
   };
+
+  const apagarPaciente=async (idPaciente)=>{
+    await fetch("http://localhost/nutris_api/delete.php?id="+idPaciente)
+    .then((response)=>response.json())
+    .then((responseJson)=>{
+      console.log(responseJson)
+    }).catch(()=>{
+      console.log("Erro");
+
+    })
+    getPacientes();
+  }
 
   useEffect(() => {
     getPacientes();
@@ -56,7 +69,13 @@ export const Pacientes = () => {
                 <td >{item.statusSaude}</td>
                 <td > {item.email}</td>
                 <td >{item.telefone}</td>
-    <td>Apagar / editar</td>
+    <td>
+      <Link to={"/atualizar/"+ item.id}>
+        <button class="btn btn-primary">Editar</button>
+      </Link>
+<button class="btn btn-danger"
+ onClick={()=>apagarPaciente(item.id)}>Apagar</button>
+    </td>
                 </tr>
             </tbody>
           ))}

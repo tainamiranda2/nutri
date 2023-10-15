@@ -1,4 +1,4 @@
-import { useState, React,useEffect } from 'react'
+import { useState, React} from 'react'
 
 export const Cadastro =()=>{
 
