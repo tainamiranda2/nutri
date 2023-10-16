@@ -10,6 +10,7 @@ export const Atualizar = () => {
   const [objetivo, setObjetivo]=useState("")
   const [historico, setHistorico]=useState("")
   const [statusSaude, setstatusSaude]=useState("")
+  const [senha, setSenha]=useState("")
   const [email, setEmail]=useState("")
   const [telefone, setTelefone]=useState("")
 
@@ -29,6 +30,7 @@ export const Atualizar = () => {
             setstatusSaude(responseJson.paciente.statusSaude)
             setTelefone(responseJson.paciente.telefone)
             setEmail(responseJson.paciente.email)
+            setSenha(responseJson.paciente.senha)
         })
     };
 
@@ -38,24 +40,29 @@ export const Atualizar = () => {
 
   const atualizarPaciente = async (e) => {
     e.preventDefault();
+    if (!nome || !idade || !historico || !objetivo || !statusSaude || !telefone || !email) {
+      alert("Por favor, preencha todos os campos obrigatórios.");
+      return;
+    }
     let numero = parseInt(id);
     let numIDade=parseInt(idade)
-    
- await fetch("http://localhost/nutris_api/update.php", {
-  method:"POST",
-  headers:{
-    'Content-Type': 'application/json'
-  },
-  body:JSON.stringify(
-    {id: numero, nome, idade:  numIDade, email, historico, statusSaude, telefone, objetivo})
- 
+    console.log(id)
+    await fetch("http://localhost/nutris_api/update.php", {
+    method:"PUT",
+    headers:{
+      'Content-Type': 'application/json'
+    },
+    body:JSON.stringify(
+      {id: numero, nome, idade: numIDade,historico, objetivo,genero,statusSaude, telefone , email, senha })
+  
 })
 
 .then((response)=>response.json())
 .then((responseJson)=>{
     console.log(responseJson)
   })
-
+  window.location.href = "/pacientes";
+ // console.log( {id: numero, nome, idade: numIDade,historico, objetivo,statusSaude, telefone , email, senha })
   };
 
   return (
@@ -115,6 +122,14 @@ name='historico' class="form-control mb-3" id="historico"
        value={statusSaude} 
        placeholder="Informe o status da saúde"/>
     
+    <label for="senha">Senha</label>
+    <input type="text"
+      name='senha' 
+      class="form-control mb-3" id="senha" 
+      onChange={e=>setSenha(e.target.value)}
+       value={senha} 
+  placeholder="informe o senha"/>
+
      <label for="email">Email </label>
     <input type="email"
       name='email' 
@@ -124,7 +139,7 @@ name='historico' class="form-control mb-3" id="historico"
        value={email}   placeholder="informe o email"/> 
     
     <label for="telefone">Telefone</label>
-    <input type="tel"
+    <input type="text"
       name='telefone' 
       class="form-control mb-3" id="telefone" 
       onChange={e=>setTelefone(e.target.value)}
